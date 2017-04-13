@@ -1,0 +1,25 @@
+{
+	"name": "dummy-content",
+	"version": "1.0.0",
+	"description": "Dummy functions for fast wireframing with placeholder content, using [dummyimage.com](http://www.dummyimage.com) and [randomtext.me](http://www.randomtext.me)",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/manuelpiepereit/dummy-content.git"
+	},
+	"homepage": "https://github.com/manuelpiepereit/dummy-content",
+	"main": "dummy-content.php",
+	"authors": [
+		"Manuel Piepereit <manuel.piepereit@neonpastell.de> (http://www.neonpastell.de/)"
+	],
+	"license": "MIT",
+	"ignore": [
+		"package.json",
+		"icon.png",
+	],
+	"dependencies": {
+
+	},
+	"devDependencies": {
+		
+	}
+}
