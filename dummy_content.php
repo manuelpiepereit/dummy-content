@@ -4,7 +4,7 @@
  * Dummy functions for fast wireframing with placeholder content
  *
  * @author 	Neonpastell GmbH, Manuel Piepereit
- * @version 1.1.0
+ * @version 1.1.1
  * @date    17/05/03
  *
  * available functions:
@@ -178,7 +178,7 @@ class dummy {
 	public static function figure($size = 'medium', $args = array(), $echo = true) {
 		$figimage = self::image($size, $args, false);
 		$figcaption = self::text(array('type' => 'h1', 'elements' => '', 'words' => '3-10' ), true);
-		$text_out = '<figure><img src="'.$figimage.'" alt="dummy image" title="dummy image title"><figcaption>'.$figcaption.'</figcaption></figure>';
+		$text_out = '<figure role="group"><img src="'.$figimage.'" alt="dummy image" title="dummy image title"><figcaption>'.$figcaption.'</figcaption></figure>';
 		echo $text_out;	
 	}
 
@@ -352,24 +352,33 @@ class dummy {
 		$args = array_merge($td_args, $args);
 		$td_text = self::text($td_args, $strip_tags);
 
-		$text_out = '';
-		for ($tr=1; $tr <= $height; $tr++) {
-			$text_out .= '<tr>'; // start table row
+		$output = '<table>';
+		$output .= '<caption>table caption</caption>';
+
+		// table header on top
+		if ($header == 'top') {
+			$output .= '<thead>';
 			for ($td=1; $td <= $width; $td++) { 
-				if ($header == 'top' && $tr == 1) { // header on top
-					$text_out .= '<th data-row="'.$tr.'" data-col="'.$td.'">'.$th_text.'</th>';
-				} else if ($header == 'left' && $td == 1) { // header on left
-					$text_out .= '<th data-row="'.$tr.'" data-col="'.$td.'">'.$th_text.'</th>';
-				} else { // no header at all
-					$text_out .= '<td data-row="'.$tr.'" data-col="'.$td.'">'.$td_text.'</td>';
-				}
+				$output .= '<th scope="col">'.$th_text.'</th>';
 			}
-			$text_out .= '</tr>'; // end table row
+			$output .= '</thead>';
 		}
 
-		echo '<table>';
-		echo $text_out;
-		echo '</table>';
+		for ($tr=1; $tr < $height; $tr++) {
+			$output .= '<tr>';
+			for ($td=1; $td <= $width; $td++) { 
+				if ($header == 'left' && $td == 1) { // header on left
+					$output .= '<th scope="row">'.$th_text.'</th>';
+				} else { // no header at all
+					$output .= '<td data-row="'.$tr.'" data-col="'.$td.'">'.$td_text.'</td>';
+				}
+			}
+			$output .= '</tr>';
+		}
+
+		$output .= '</table>';
+
+		echo $output;
 	}
 
 
@@ -420,7 +429,7 @@ class dummy {
 
 		$output .= '<hr>';
 		$output .= '<label for="input_with_info">input with description <small class="label__info">(optional)</small><input type="text" id="input_with_info" placeholder="optional info text"></label>';
-		$output .= '<label for="input_with_help">password with helptext<input type="password" aria-describedby="passwordHelpText" id="input_with_help" placeholder="optional longer helptext with aria-describedby"><div class="help-text" id="passwordHelpText">Your password must have at least 10 characters, a number, and an Emoji.</div></label>';
+		$output .= '<label for="input_with_help">password with helptext<input type="password" aria-describedby="passwordHelpText" id="input_with_help" placeholder="optional longer helptext with aria-describedby"><p class="help-text" id="passwordHelpText">Your password must have at least 10 characters, a number, and an Emoji.</p></label>';
 
 		if ($echo) {
 			echo $output;
@@ -438,16 +447,16 @@ class dummy {
 	 * @return  string
 	 */
 	public static function selects($echo = true) {
-		$output = '<label>select menu
-						<select>
+		$output = '<label for="select">select menu
+						<select id="select">
 							<option value="option1">Option 1</option>
 							<option value="option2">Option 2</option>
 							<option value="option3">Option 3</option>
 							<option value="option4">Option 4</option>
 						</select>
 					</label>
-					<label>multimple select menu
-						<select multiple="multiple">
+					<label for="select_multiple">multimple select menu
+						<select id="select_multiple" multiple="multiple">
 							<option value="option1">Option 1</option>
 							<option value="option2">Option 2</option>
 							<option value="option3">Option 3</option>
@@ -540,7 +549,7 @@ class dummy {
 			$supports = array($supports);
 		}
 
-		$output = '<form>';
+		$output = '<form action="#">';
 		if (in_array('inputs', $supports)) {
 			$output .= self::inputs(false);
 			$output .= '<hr>';
@@ -662,7 +671,7 @@ if (!function_exists('dummy_the_title')) {
 				<br style="clear: both;">
 				</div>';
 		
-		$table = '<h3>table</h3><table><thead><tr><th>Table Head Column One</th><th>Table Head Column Two</th><th>Table Head Column Three</th></tr></thead>
+		$table = '<h3>table</h3><table><caption>table caption</caption><thead><tr><th scope="col">Table Head Column One</th><th scope="col">Table Head Column Two</th><th scope="col">Table Head Column Three</th></tr></thead>
 				<tfoot><tr><td>Table Footer Column One</td><td>Table Footer Column Two</td><td>Table Footer Column Three</td></tr></tfoot>
 				<tbody><tr><td>Table Row Column One</td><td>Short Text</td><td>Testing a table cell with a longer amount of text to see what happens, you\'re not using tables for site layouts are you?</td></tr><tr><td>Table Row Column One</td><td>Table Row Column Two</td><td>Table Row Column Three</td></tr><tr><td>Table Row Column One</td><td>Table Row Column Two</td><td>Table Row Column Three</td></tr><tr><td>Table Row Column One</td><td>Table Row Column Two</td><td>Table Row Column Three</td></tr><tr><td>Table Row Column One</td><td>Table Row Column Two</td><td>Table Row Column Three</td></tr></tbody></table>';
 		

@@ -9,7 +9,7 @@ Dummy functions for fast wireframing with placeholder content, using [dummyimage
 
 ## available functions
 
-### generic 
+### Image elements
 
 * `dummy::set_image_defaults(array( 'domain' => 'https://dummyimage.com',  
 									'px' => '1920x1080', // pixel dimensions
@@ -23,6 +23,7 @@ Dummy functions for fast wireframing with placeholder content, using [dummyimage
 * `dummy::image($size = 'hd', $args = array(), $echo = true)`
 * `dummy::figure($size = 'hd', $args = array(), $echo = true)`
 
+### Text elements
 * `dummy::text($args = array(
 			'domain' => 'http://www.randomtext.me/api',
 			'generator' => 'lorem', // lorem|gibberish
@@ -40,6 +41,8 @@ Dummy functions for fast wireframing with placeholder content, using [dummyimage
 * `dummy::p($args = array(), $strip_tags = false)`
 * `dummy::blockquote($args = array(), $strip_tags = false)`
 * `dummy::table($dimensions = '4x5', $header = 'top', $args = array(), $strip_tags = true)`
+
+### Form elements
 * `dummy::inputs($echo = true)`
 * `dummy::selects($echo = true)`
 * `dummy::radios($echo = true)`
@@ -56,4 +59,9 @@ Dummy functions for fast wireframing with placeholder content, using [dummyimage
 
 
 ## history
-* v1.0.0: basic functions
+* **v1.1.1** 
+  * fixed some html linting issues in form, figure and table elements
+* **v1.1.0** 
+  * added form element functions
+* **v1.0.0** 
+  * basic text and image functions
