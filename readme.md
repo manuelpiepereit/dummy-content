@@ -40,13 +40,19 @@ Dummy functions for fast wireframing with placeholder content, using [dummyimage
 * `dummy::p($args = array(), $strip_tags = false)`
 * `dummy::blockquote($args = array(), $strip_tags = false)`
 * `dummy::table($dimensions = '4x5', $header = 'top', $args = array(), $strip_tags = true)`
+* `dummy::inputs($echo = true)`
+* `dummy::selects($echo = true)`
+* `dummy::radios($echo = true)`
+* `dummy::checkboxes($echo = true)`
+* `dummy::button($label, $modifier_class = '', $echo = true)`
+* `dummy::form($supports = array('inputs', 'selects', 'radios', 'checkboxes', 'buttons'))`
 
 
 ### wordpress specific
-* `dummy_the_post_thumbnail()`
+* `dummy_the_post_thumbnail($size = 'hd', $args = array(), $echo = true)`
 * `dummy_the_title()`
 * `dummy_the_excerpt()`
-* `dummy_the_content()`
+* `dummy_the_content($supports = array('intro', 'headings', 'paragraphs', 'lists', 'images', 'gallery', 'table', 'blockquote', 'address', 'form'))`
 
 
 ## history

@@ -1,6 +1,6 @@
 {
 	"name": "dummy-content",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Dummy functions for fast wireframing with placeholder content, using [dummyimage.com](http://www.dummyimage.com) and [randomtext.me](http://www.randomtext.me)",
 	"repository": {
 		"type": "git",

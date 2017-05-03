@@ -4,8 +4,8 @@
  * Dummy functions for fast wireframing with placeholder content
  *
  * @author 	Neonpastell GmbH, Manuel Piepereit
- * @version 1.0.0
- * @date    17/04/06
+ * @version 1.1.0
+ * @date    17/05/03
  *
  * available functions:
  *
@@ -39,11 +39,18 @@
  * dummy::blockquote($args = array(), $strip_tags = false);
  * dummy::table($dimensions = '4x5', $header = 'top', $args = array(), $strip_tags = true) {
  *
+ * dummy::inputs($echo = true);
+ * dummy::selects($echo = true);
+ * dummy::radios($echo = true);
+ * dummy::checkboxes($echo = true);
+ * dummy::button($label, $modifier_class = '', $echo = true);
+ * dummy::form($supports = array('inputs', 'selects', 'radios', 'checkboxes', 'buttons'));
+ *
  * for wordpress placeholders
- * dummy_the_post_thumbnail();
+ * dummy_the_post_thumbnail($size = 'hd', $args = array(), $echo = true);
  * dummy_the_title();
  * dummy_the_excerpt();	
- * dummy_the_content();
+ * dummy_the_content(array('intro', 'headings', 'paragraphs', 'lists', 'images', 'gallery', 'table', 'blockquote', 'address', 'form'));
  */
 
 
@@ -366,21 +373,209 @@ class dummy {
 	}
 
 
+
+
+
+
+	/**
+	 * creates input elements
+	 *
+	 * @since   1.1.0
+	 * @date    17/05/03
+	 * @param 	$echo (bool) if elements are echoed or string is returned
+	 * @return  string
+	 */
+	public static function inputs($echo = true) {
+		$output = '<label for="text">label for text input</label>
+			<input type="text" id="text" placeholder="text">
+			<input type="text" id="text_with_value" placeholder="text" value="input with value">
+			<label for="text_required">required input</label>
+			<input type="text" id="text_required" placeholder="text required without value" required="required">
+			<input type="text" id="text_required_with_value" placeholder="text required with value" required="required" value="input required with value">
+			<label for="text_disabled">disabled input</label>
+			<input type="text" id="text_disabled" placeholder="text disabled" disabled="disabled">
+			<input type="text" id="text_disabled_with_value" placeholder="text disabled with value" value="text disabled with value" disabled="disabled">
+			<hr>
+			<label for="number">number</label>
+			<input type="number" id="number" placeholder="number">
+			<label for="email">email</label>
+			<input type="email" id="email" placeholder="email">
+			<label for="password">password</label>
+			<input type="password" id="password" placeholder="password">
+			<label for="url">url</label>
+			<input type="url" id="url" placeholder="url">
+			<label for="search">search</label>
+			<input type="search" id="search" placeholder="search">
+			<label for="date">date</label>
+			<input type="date" id="date" placeholder="date">
+			<label for="color">color picker</label>
+			<input type="color" id="color" value="#ff7c00">
+			<hr>
+			<label for="textarea">textarea</label>
+			<textarea rows="5" id="textarea" placeholder="textarea"></textarea>
+			<hr>
+			<input type="submit" value="Submit" />
+			<input type="reset" value="Reset" />
+			<input type="button" value="Button" />';
+
+		$output .= '<hr>';
+		$output .= '<label for="input_with_info">input with description <small class="label__info">(optional)</small><input type="text" id="input_with_info" placeholder="optional info text"></label>';
+		$output .= '<label for="input_with_help">password with helptext<input type="password" aria-describedby="passwordHelpText" id="input_with_help" placeholder="optional longer helptext with aria-describedby"><div class="help-text" id="passwordHelpText">Your password must have at least 10 characters, a number, and an Emoji.</div></label>';
+
+		if ($echo) {
+			echo $output;
+		} else {
+			return $output;
+		}
+	}
+
+	/**
+	 * creates select elements
+	 *
+	 * @since   1.1.0
+	 * @date    17/05/03
+	 * @param 	$echo (bool) if elements are echoed or string is returned
+	 * @return  string
+	 */
+	public static function selects($echo = true) {
+		$output = '<label>select menu
+						<select>
+							<option value="option1">Option 1</option>
+							<option value="option2">Option 2</option>
+							<option value="option3">Option 3</option>
+							<option value="option4">Option 4</option>
+						</select>
+					</label>
+					<label>multimple select menu
+						<select multiple="multiple">
+							<option value="option1">Option 1</option>
+							<option value="option2">Option 2</option>
+							<option value="option3">Option 3</option>
+							<option value="option4">Option 4</option>
+						</select>
+					</label>';
+		if ($echo) {
+			echo $output;
+		} else {
+			return $output;
+		}
+	}
+
+	/**
+	 * creates radio elements
+	 *
+	 * @since   1.1.0
+	 * @date    17/05/03
+	 * @param 	$echo (bool) if elements are echoed or string is returned
+	 * @return  string
+	 */
+	public static function radios($echo = true) {
+		$output = '<fieldset>
+						<legend>Group of radiobuttons</legend>
+						<input type="radio" name="radio" value="Radio 1" id="radio1" checked="checked"><label for="radio1">Radio 1</label>
+						<input type="radio" name="radio" value="Radio 2" id="radio2"><label for="radio2">Radio 2</label>
+						<input type="radio" name="radio" value="Radio 3" id="radio3"><label for="radio3">Radio 3</label>
+						<input type="radio" name="radio" value="Radio 4" id="radio4" disabled="disabled"><label for="radio4">Radio 4 disabled</label>
+					</fieldset>';
+		if ($echo) {
+			echo $output;
+		} else {
+			return $output;
+		}
+	}
+
+	/**
+	 * creates checkbox elements
+	 *
+	 * @since   1.1.0
+	 * @date    17/05/03
+	 * @param 	$echo (bool) if elements are echoed or string is returned
+	 * @return  string
+	 */
+	public static function checkboxes($echo = true) {
+		$output = '<fieldset>
+						<legend>Checkboxes</legend>
+						<input type="checkbox" id="checkbox1" checked="checked"><label for="checkbox1">Checkbox 1</label>
+						<input type="checkbox" id="checkbox2"><label for="checkbox2">Checkbox 2</label>
+						<input type="checkbox" id="checkbox3"><label for="checkbox3">Checkbox 3</label>
+						<input type="checkbox" id="checkbox4" disabled="disabled"><label for="checkbox4">Checkbox 4 disabled</label>
+					</fieldset>';
+		if ($echo) {
+			echo $output;
+		} else {
+			return $output;
+		}
+	}
+
+	/**
+	 * creates button elements
+	 *
+	 * @since   1.1.0
+	 * @date    17/05/03
+	 * @param 	$echo (bool) if elements are echoed or string is returned
+	 * @return  string
+	 */
+	public static function button($label, $modifier_class = '', $echo = true) {
+		$output = '<button type="button" class="button '.$modifier_class.'">'.$label.'</button>';
+		if ($echo) {
+			echo $output;
+		} else {
+			return $output;
+		}
+	}
+
+
+
+
 	/**
 	 * creates a form element - still to implement
 	 *
-	 * @since   
-	 * @date    
-	 * @param 	$args (array)
+	 * @since   1.1.0
+	 * @date    17/05/03
+	 * @param 	$args (array) arguments for element creation
 	 * @return  string
 	 */
-	// public static function form($args = array()) {
+	public static function form($supports = array('inputs', 'selects', 'radios', 'checkboxes', 'buttons'), $echo = true) {
+		if (!is_array($supports)) {
+			$supports = array($supports);
+		}
+
+		$output = '<form>';
+		if (in_array('inputs', $supports)) {
+			$output .= self::inputs(false);
+			$output .= '<hr>';
+		}
+		if (in_array('selects', $supports)) {
+			$output .= self::selects(false);
+			$output .= '<hr>';
+		}
+		if (in_array('radios', $supports)) {
+			$output .= self::radios(false);
+			$output .= '<hr>';
+		}
+		if (in_array('checkboxes', $supports)) {
+			$output .= self::checkboxes(false);
+			$output .= '<hr>';
+		}
+		if (in_array('buttons', $supports)) {
+			$output .= self::button('Default', '', false);
+			$output .= self::button('Primary', 'button--primary', false);
+			$output .= self::button('Secondary', 'button--secondary', false);
+			$output .= self::button('Outline', 'button--outline', false);
+			$output .= '<hr>';
+		}
+		$output .= '</form>';
 		
-	// }
+		if ($echo) {
+			echo $output;
+		} else {
+			return $output;
+		}
+	}
 	
 }
 
-
+									
 
 
 
@@ -431,7 +626,7 @@ if (!function_exists('dummy_the_title')) {
 
 	// placeholder for the_content()
 	// text from http://www.wpfill.me/
-	function dummy_the_content($supports = array('intro', 'headings', 'paragraphs', 'lists', 'images', 'gallery', 'table', 'blockquote', 'address')) {
+	function dummy_the_content($supports = array('intro', 'headings', 'paragraphs', 'lists', 'images', 'gallery', 'table', 'blockquote', 'address', 'form')) {
 		$intro = '<p class="exposed">So here we are, testing a bunch of text and image elements available for editors from the Wordpress TinyMCE. The text below is from <a href="http://www.wpfill.de">www.wpfill.de</a> and works pretty well to style all elements during development. <br>By the way, this paragraph has an <em>.exposed</em> class to highlight certain text passages. This functionality is also made available as an MCE Plugin by <a href="http://www.neonpastell.de">Neonpastell Gmbh, Augsburg</a>.</p>';
 
 		$headings = '<h1>Level One Heading</h1><h2>Level Two Heading</h2><h3>Level Three Heading</h3><h4>Level Four Heading</h4><h5>Level Five Heading</h5><h6>Level Six Heading</h6>';
@@ -442,11 +637,11 @@ if (!function_exists('dummy_the_title')) {
 				<p style="text-align: justify;">This is a justified paragraph.&nbsp;Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Cras mattis consectetur purus sit amet fermentum.</p>
 				<p style="padding-left: 30px;">Finally, you also have the option of an indented paragraph.&nbsp;Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Cras mattis consectetur purus sit amet fermentum.</p>';
 
-		$lists = '<h3>lists</h3><ol><li>Ordered list item one.</li><li>Ordered list item two.</li><li>Ordered list item three.</li><li>Ordered list item four.</li><li>By the way, Wordpress does not let you create nested lists through the visual editor.</li></ol>
-				<ul><li>Unordered list item one.</li><li>Unordered list item two.</li><li>Unordered list item three.</li><li>Unordered list item four.</li><li>By the way, Wordpress does not let you create nested lists through the visual editor.</li></ul>';
+		$lists = '<h3>lists</h3><ol><li>Ordered list item one.</li><li>Ordered list item two.<ol><li>Ordered list item one.</li><li>Ordered list item two.</li></ol></li><li>Ordered list item three.</li><li>Ordered list item four.</li><li>By the way, Wordpress does not let you create nested lists through the visual editor.</li></ol>
+				<ul><li>Unordered list item one.</li><li>Unordered list item two.</li><li>Unordered list item three.<ul><li>Unordered list item one.</li><li>Unordered list item two.</li></ul></li><li>Unordered list item four.</li><li>By the way, Wordpress does not let you create nested lists through the visual editor.</li></ul>';
 		
 		$images = '<h3>images</h3><p>OK, so images can get quite complicated as we have a few variables to work with! For example the image below has had a caption entered in the WordPress image upload dialog box, this creates a [caption] shortcode which then in turn wraps the whole thing in a <code>div</code> with inline styling! Maybe one day they\'ll be able to use the <code>figure</code> and <code>figcaption</code> elements for all this. Additionally, images can be wrapped in links which, if you\'re using anything other than <code>color</code> or <code>text-decoration</code> to style your links can be problematic.</p>
-				<div id="attachment_28" class="wp-caption alignnone" style="width: 510px"><a href="#"><img src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_large.png" alt="Your Alt Tag" title="bmxisbest" width="500" height="300" class="size-large wp-image-28"></a><p class="wp-caption-text">This is the optional caption.</p></div>
+				<div id="attachment_28" class="wp-caption alignnone" style="width: 510px"><a href="#link"><img src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_large.png" alt="Your Alt Tag" title="bmxisbest" width="500" height="300" class="size-large wp-image-28"></a><p class="wp-caption-text">This is the optional caption.</p></div>
 				<p>The next issue we face is image alignment, users get the option of <em>None</em>, <em>Left</em>, <em>Right</em> &amp; <em>Center</em>. On top of this, they also get the options of <em>Thumbnail</em>, <em>Medium</em>, <em>Large</em> &amp; <em>Fullsize</em>. You\'ll probably want to add floats to style the image position so important to remember to clear these to stop images popping below the bottom of your articles.</p>
 				<img src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_medium.png" alt="Your Alt Title" title="Your Title" width="300" height="200" class="alignright size-medium wp-image-28">
 				<img src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_thumb.png" alt="Your Alt Title" title="Your Title" width="150" height="150" class="alignleft size-thumbnail wp-image-28">
@@ -459,11 +654,11 @@ if (!function_exists('dummy_the_title')) {
 				<p>And then... Finally, users can insert a WordPress [gallery], which is kinda ugly and comes with some CSS stuck into the page to style it (which doesn\'t actually validate, nor does the markup for the gallery). The amount of columns in the gallery is also changable by the user, but the default is three so we\'ll work with that for our example with an added fouth image to test verticle spacing.</p>
 				<style type="text/css">#gallery-1{margin:auto;}#gallery-1 .gallery-item{float:left;margin-top:10px;text-align:center;width:33%;}#gallery-1 img{border:2px solid #cfcfcf;}#gallery-1 .gallery-caption{margin-left:0;}</style>
 				<div id="gallery-1" class="gallery galleryid-1 gallery-columns-3 gallery-size-thumbnail">
-				<dl class="gallery-item"><dt class="gallery-icon"><a href="#" title="Your Title"><img width="150" height="150" src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_thumb.png" class="attachment-thumbnail" alt="Your Alt Title" title="Your Title"></a></dt></dl>
-				<dl class="gallery-item"><dt class="gallery-icon"><a href="#" title="Your Title"><img width="150" height="150" src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_thumb.png" class="attachment-thumbnail" alt="Your Alt Title" title="Your Title"></a></dt></dl>
-				<dl class="gallery-item"><dt class="gallery-icon"><a href="#" title="Your Title"><img width="150" height="150" src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_thumb.png" class="attachment-thumbnail" alt="Your Alt Title" title="Your Title"></a></dt></dl>
+				<dl class="gallery-item"><dt class="gallery-icon"><a href="#link" title="Your Title"><img width="150" height="150" src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_thumb.png" class="attachment-thumbnail" alt="Your Alt Title" title="Your Title"></a></dt></dl>
+				<dl class="gallery-item"><dt class="gallery-icon"><a href="#link" title="Your Title"><img width="150" height="150" src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_thumb.png" class="attachment-thumbnail" alt="Your Alt Title" title="Your Title"></a></dt></dl>
+				<dl class="gallery-item"><dt class="gallery-icon"><a href="#link" title="Your Title"><img width="150" height="150" src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_thumb.png" class="attachment-thumbnail" alt="Your Alt Title" title="Your Title"></a></dt></dl>
 				<br style="clear: both">
-				<dl class="gallery-item"><dt class="gallery-icon"><a href="#" title="Your Title"><img width="150" height="150" src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_thumb.png" class="attachment-thumbnail" alt="Your Alt Title" title="Your Title"></a></dt></dl>
+				<dl class="gallery-item"><dt class="gallery-icon"><a href="#link" title="Your Title"><img width="150" height="150" src="http://www.wpfill.me.s3-website-us-east-1.amazonaws.com/img/img_thumb.png" class="attachment-thumbnail" alt="Your Alt Title" title="Your Title"></a></dt></dl>
 				<br style="clear: both;">
 				</div>';
 		
@@ -491,6 +686,7 @@ CSSland,
 		if (in_array('gallery', $supports)) {		$output .= $gallery; }
 		if (in_array('table', $supports)) {			$output .= $table; }
 		if (in_array('blockquote', $supports)) {	$output .= $blockquote; }
+		if (in_array('form', $supports)) {			$output .= dummy::form(array('inputs', 'selects', 'radios', 'checkboxes', 'buttons'), false); }
 		if (in_array('address', $supports)) {		$output .= $address; }
 		echo $output;
 
